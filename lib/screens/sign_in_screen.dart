@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-<<<<<<< HEAD
-import 'package:fasum/screens/home_screen.dart';
-import 'package:fasum/screens/sign_up_screen.dart';
-
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
-=======
 import 'package:sharesep/screens/home_screen.dart';
 import 'package:sharesep/screens/sign_up_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+final googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+    ],
+    clientId:
+    '928610520931-r28737cvjhu8qn0nrfc8sjasgn7p1nlb.apps.googleusercontent.com');
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
->>>>>>> cdf65f0ab753676e32943389115445867f8bf1c8
   @override
   SignInScreenState createState() => SignInScreenState();
 }
@@ -22,7 +22,32 @@ class SignInScreenState extends State<SignInScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   String _errorMessage = '';
-<<<<<<< HEAD
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        await FirebaseAuth.instance.signInWithCredential(credential);
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      }
+    } catch (error) {
+      setState(() {
+        _errorMessage = error.toString();
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(_errorMessage),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,6 +148,10 @@ class SignInScreenState extends State<SignInScreen> {
                 child: const Text('Sign In'),
               ),
               const SizedBox(height: 32.0),
+              ElevatedButton(
+                  onPressed: _signInWithGoogle,
+                  child: Text('Sign In With Google')),
+              const SizedBox(height: 16.0),
               TextButton(
                 onPressed: () {
                   Navigator.push(
@@ -148,65 +177,3 @@ class SignInScreenState extends State<SignInScreen> {
     return regex.hasMatch(email);
   }
 }
-=======
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Sign In'),
-        ),
-        body: Padding(
-        padding: const EdgeInsets.all(16.0),
-    child: SingleChildScrollView(
-    child: Column(
-    children: [
-    const SizedBox(height: 32.0),
-    TextField(
-    controller: _emailController,
-    decoration: const InputDecoration(
-    labelText: 'Email',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    const SizedBox(height: 16.0),
-    TextField(
-    controller: _passwordController,
-    decoration: const InputDecoration(
-    labelText: 'Password',
-    border: OutlineInputBorder(),
-    ),
-    obscureText: true,
-    ),
-    const SizedBox(height: 16.0),
-    ElevatedButton(
-    onPressed: () async {
-    final email = _emailController.text.trim();
-    final password = _passwordController.text;
-// Validasi email
-    if (email.isEmpty || !isValidEmail(email)) {
-    ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text('Please enter a valid
-    email')),
-    );
-    return;
-    }
-// Validasi password
-    if (password.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text('Please enter your
-    password')),
-    );
-    return;
-    }
-    try {
-// Lakukan sign in dengan email dan password
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: email,
-    password: password,
-    );
-// Jika berhasil sign in, navigasi ke halaman beranda
-    Navigator.of(context).pushReplacement(
-    MaterialPageRoute(builder: (context) => const
-    HomeScreen()),
->>>>>>> cdf65f0ab753676e32943389115445867f8bf1c8

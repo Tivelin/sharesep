@@ -27,7 +27,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        return windows;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -41,54 +44,42 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBqjC7fAdIHA6db1n0R9TIjJeV9BusLE20',
-    appId: '1:128257096922:web:ab0d05f52288574ed539e3',
-    messagingSenderId: '128257096922',
-    projectId: 'employee-app-40e35',
-    authDomain: 'employee-app-40e35.firebaseapp.com',
-    databaseURL: 'https://employee-app-40e35-default-rtdb.firebaseio.com',
-    storageBucket: 'employee-app-40e35.appspot.com',
-    measurementId: 'G-XTP0KCRMWL',
+    apiKey: 'AIzaSyD_iZwhUPZLt8PRWlIubU147rLUDMLpotc',
+    appId: '1:998685434592:web:0367000a2364ac807be685',
+    messagingSenderId: '998685434592',
+    projectId: 'sharesep-db',
+    authDomain: 'sharesep-db.firebaseapp.com',
+    databaseURL: 'https://sharesep-db-default-rtdb.firebaseio.com',
+    storageBucket: 'sharesep-db.appspot.com',
+    measurementId: 'G-142XEPCMSN',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBMHai99ya-HShSvXNBs2rP2L0bydyydx0',
-    appId: '1:128257096922:android:d3a75bec04f9a0bdd539e3',
-    messagingSenderId: '128257096922',
-    projectId: 'employee-app-40e35',
-    databaseURL: 'https://employee-app-40e35-default-rtdb.firebaseio.com',
-    storageBucket: 'employee-app-40e35.appspot.com',
+    apiKey: 'AIzaSyBGk2ap-Ee1xSzE9rRMdFKHtOEa3hdEltI',
+    appId: '1:998685434592:android:9b99f133beacd6677be685',
+    messagingSenderId: '998685434592',
+    projectId: 'sharesep-db',
+    databaseURL: 'https://sharesep-db-default-rtdb.firebaseio.com',
+    storageBucket: 'sharesep-db.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCTBtSIscWkGWLw-ggDaUU99EFFHQlcCoU',
-    appId: '1:128257096922:ios:35c3db8f11fbf5b1d539e3',
-    messagingSenderId: '128257096922',
-    projectId: 'employee-app-40e35',
-    databaseURL: 'https://employee-app-40e35-default-rtdb.firebaseio.com',
-    storageBucket: 'employee-app-40e35.appspot.com',
+    apiKey: 'AIzaSyBYZFKl0GZr6UrhV9yQKCkazQFh_bS1Oyw',
+    appId: '1:998685434592:ios:4ae32952166b81a17be685',
+    messagingSenderId: '998685434592',
+    projectId: 'sharesep-db',
+    databaseURL: 'https://sharesep-db-default-rtdb.firebaseio.com',
+    storageBucket: 'sharesep-db.appspot.com',
     iosBundleId: 'com.example.sharesep',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCTBtSIscWkGWLw-ggDaUU99EFFHQlcCoU',
-    appId: '1:128257096922:ios:35c3db8f11fbf5b1d539e3',
-    messagingSenderId: '128257096922',
-    projectId: 'employee-app-40e35',
-    databaseURL: 'https://employee-app-40e35-default-rtdb.firebaseio.com',
-    storageBucket: 'employee-app-40e35.appspot.com',
-    iosBundleId: 'com.example.sharesep',
+    apiKey: 'AIzaSyBYZFKl0GZr6UrhV9yQKCkazQFh_bS1Oyw',
+    appId: '1:998685434592:ios:e0fc385a97795e737be685',
+    messagingSenderId: '998685434592',
+    projectId: 'sharesep-db',
+    databaseURL: 'https://sharesep-db-default-rtdb.firebaseio.com',
+    storageBucket: 'sharesep-db.appspot.com',
+    iosBundleId: 'com.example.sharesep.RunnerTests',
   );
-
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBqjC7fAdIHA6db1n0R9TIjJeV9BusLE20',
-    appId: '1:128257096922:web:16a3bfe1ece8ede9d539e3',
-    messagingSenderId: '128257096922',
-    projectId: 'employee-app-40e35',
-    authDomain: 'employee-app-40e35.firebaseapp.com',
-    databaseURL: 'https://employee-app-40e35-default-rtdb.firebaseio.com',
-    storageBucket: 'employee-app-40e35.appspot.com',
-    measurementId: 'G-CQ0JQGMW23',
-  );
-
 }
