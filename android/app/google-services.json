@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "998685434592",
+    "firebase_url": "https://sharesep-db-default-rtdb.firebaseio.com",
+    "project_id": "sharesep-db",
+    "storage_bucket": "sharesep-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998685434592:android:9b99f133beacd6677be685",
+        "android_client_info": {
+          "package_name": "com.example.sharesep"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGk2ap-Ee1xSzE9rRMdFKHtOEa3hdEltI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
