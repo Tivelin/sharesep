@@ -44,42 +44,44 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD_iZwhUPZLt8PRWlIubU147rLUDMLpotc',
-    appId: '1:998685434592:web:0367000a2364ac807be685',
-    messagingSenderId: '998685434592',
-    projectId: 'sharesep-db',
-    authDomain: 'sharesep-db.firebaseapp.com',
-    databaseURL: 'https://sharesep-db-default-rtdb.firebaseio.com',
-    storageBucket: 'sharesep-db.appspot.com',
-    measurementId: 'G-142XEPCMSN',
+    apiKey: 'AIzaSyAOMkLVmbQXtQN7XQlfuztijKPqaDGZ5Cc',
+    appId: '1:702561533951:web:be843ce753ccd516a771ca',
+    messagingSenderId: '702561533951',
+    projectId: 'sharesep1-db',
+    authDomain: 'sharesep1-db.firebaseapp.com',
+    databaseURL: 'https://sharesep1-db-default-rtdb.firebaseio.com',
+    storageBucket: 'sharesep1-db.appspot.com',
+    measurementId: 'G-EL2F7L430L',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBGk2ap-Ee1xSzE9rRMdFKHtOEa3hdEltI',
-    appId: '1:998685434592:android:9b99f133beacd6677be685',
-    messagingSenderId: '998685434592',
-    projectId: 'sharesep-db',
-    databaseURL: 'https://sharesep-db-default-rtdb.firebaseio.com',
-    storageBucket: 'sharesep-db.appspot.com',
+    apiKey: 'AIzaSyDAoSFt41K9-qYAwrnOHS9TwS-NvUyDiSE',
+    appId: '1:702561533951:android:66767df79f9a2738a771ca',
+    messagingSenderId: '702561533951',
+    projectId: 'sharesep1-db',
+    databaseURL: 'https://sharesep1-db-default-rtdb.firebaseio.com',
+    storageBucket: 'sharesep1-db.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBYZFKl0GZr6UrhV9yQKCkazQFh_bS1Oyw',
-    appId: '1:998685434592:ios:4ae32952166b81a17be685',
-    messagingSenderId: '998685434592',
-    projectId: 'sharesep-db',
-    databaseURL: 'https://sharesep-db-default-rtdb.firebaseio.com',
-    storageBucket: 'sharesep-db.appspot.com',
+    apiKey: 'AIzaSyBznWizc3PxZwhuSHCfZOLivX-PBQQk0NY',
+    appId: '1:702561533951:ios:25d19b7e193c1d45a771ca',
+    messagingSenderId: '702561533951',
+    projectId: 'sharesep1-db',
+    databaseURL: 'https://sharesep1-db-default-rtdb.firebaseio.com',
+    storageBucket: 'sharesep1-db.appspot.com',
+    iosClientId: '702561533951-fn2fdagv5fm1ulir72uqd4hs3eel93gc.apps.googleusercontent.com',
     iosBundleId: 'com.example.sharesep',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBYZFKl0GZr6UrhV9yQKCkazQFh_bS1Oyw',
-    appId: '1:998685434592:ios:e0fc385a97795e737be685',
-    messagingSenderId: '998685434592',
-    projectId: 'sharesep-db',
-    databaseURL: 'https://sharesep-db-default-rtdb.firebaseio.com',
-    storageBucket: 'sharesep-db.appspot.com',
+    apiKey: 'AIzaSyBznWizc3PxZwhuSHCfZOLivX-PBQQk0NY',
+    appId: '1:702561533951:ios:ac22753c25ad8659a771ca',
+    messagingSenderId: '702561533951',
+    projectId: 'sharesep1-db',
+    databaseURL: 'https://sharesep1-db-default-rtdb.firebaseio.com',
+    storageBucket: 'sharesep1-db.appspot.com',
+    iosClientId: '702561533951-n96anf8nusg977rhc6kjefdgdro7btgd.apps.googleusercontent.com',
     iosBundleId: 'com.example.sharesep.RunnerTests',
   );
 }

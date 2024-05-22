@@ -1,17 +1,12 @@
-import 'package:sharesep/screens/add_post_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sharesep/screens/add_post_screen.dart';
 import 'package:sharesep/screens/sign_in_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   Future<void> signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
 
@@ -23,13 +18,22 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Screen'),
+        title: const Text('Home'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        actions: [
+          IconButton(
+            onPressed: () {
+              signOut(context);
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('posts').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           return ListView(
             children: snapshot.data!.docs.map((document) {
@@ -37,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListTile(
                   leading: document['imageUrl'] != null
                       ? Image.network(document['imageUrl'])
-                      : Icon(Icons.image),
+                      : const Icon(Icons.image),
                   title: Text(document['username']),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
             MaterialPageRoute(builder: (context) => AddPostScreen()),
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

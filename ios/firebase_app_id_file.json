@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:998685434592:ios:4ae32952166b81a17be685",
-  "FIREBASE_PROJECT_ID": "sharesep-db",
-  "GCM_SENDER_ID": "998685434592"
+  "GOOGLE_APP_ID": "1:702561533951:ios:25d19b7e193c1d45a771ca",
+  "FIREBASE_PROJECT_ID": "sharesep1-db",
+  "GCM_SENDER_ID": "702561533951"
 }

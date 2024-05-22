@@ -9,7 +9,7 @@ final googleSignIn = GoogleSignIn(
       'email',
     ],
     clientId:
-    '928610520931-r28737cvjhu8qn0nrfc8sjasgn7p1nlb.apps.googleusercontent.com');
+    '998685434592-022d7tgg7o5ksg45gm5emj785lsh1dm5.apps.googleusercontent.com');
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});

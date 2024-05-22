@@ -30,7 +30,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Future<void> _uploadPost() async {
     if (_image == null || _descriptionController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Image and description are required')),
+        const SnackBar(content: Text('Image and description are required')),
       );
       return;
     }
@@ -66,7 +66,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Post'),
+        title: const Text('Add Post'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -76,17 +76,17 @@ class _AddPostScreenState extends State<AddPostScreen> {
               GestureDetector(
                 onTap: getImage,
                 child: _image == null
-                    ? Icon(Icons.camera_alt, size: 100)
+                    ? const Icon(Icons.camera_alt, size: 100)
                     : Image.file(_image!),
               ),
               TextField(
                 controller: _descriptionController,
-                decoration: InputDecoration(labelText: 'Description'),
+                decoration: const InputDecoration(labelText: 'Description'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _uploadPost,
-                child: Text('Post'),
+                child: const Text('Post'),
               ),
             ],
           ),
