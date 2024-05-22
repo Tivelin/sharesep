@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 class AddPostScreen extends StatefulWidget {
   @override
   _AddPostScreenState createState() => _AddPostScreenState();
@@ -48,3 +47,51 @@ class _AddPostScreenState extends State<AddPostScreen> {
       print(e);
       return;
     }
+
+    final user = FirebaseAuth.instance.currentUser;
+    final username = user?.email ?? 'Anonymous';
+
+    FirebaseFirestore.instance.collection('posts').add({
+      'imageUrl': imageUrl,
+      'description': _descriptionController.text,
+      'timestamp': Timestamp.now(),
+      'username':
+          username, // Hardcoded username, you can replace this with actual user data
+    });
+
+    Navigator.pop(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Add Post'),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: getImage,
+                child: _image == null
+                    ? Icon(Icons.camera_alt, size: 100)
+                    : Image.file(_image!),
+              ),
+              TextField(
+                controller: _descriptionController,
+                decoration: InputDecoration(labelText: 'Description'),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _uploadPost,
+                child: Text('Post'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
