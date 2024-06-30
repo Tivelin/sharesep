@@ -4,15 +4,8 @@ import 'package:sharesep/screens/home_screen.dart';
 import 'package:sharesep/screens/sign_up_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-final googleSignIn = GoogleSignIn(
-    scopes: [
-      'email',
-    ],
-    clientId:
-    '998685434592-022d7tgg7o5ksg45gm5emj785lsh1dm5.apps.googleusercontent.com');
-
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+  const SignInScreen({Key? key});
 
   @override
   SignInScreenState createState() => SignInScreenState();
@@ -23,28 +16,31 @@ class SignInScreenState extends State<SignInScreen> {
   final _passwordController = TextEditingController();
   String _errorMessage = '';
 
-  Future<void> _signInWithGoogle() async {
+  ValueNotifier userCredential = ValueNotifier('');
+
+  Future<dynamic> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      if (googleUser != null) {
-        final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-        final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        );
-        await FirebaseAuth.instance.signInWithCredential(credential);
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-      }
-    } catch (error) {
-      setState(() {
-        _errorMessage = error.toString();
-      });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(_errorMessage),
-      ));
+      final GoogleSignInAccount? googleUser = await GoogleSignIn(
+        scopes: [
+          'email',
+        ],
+        clientId:
+            //'37974253661-bf7jutp8u17m02uf1jbi9r6p5gfnfus8.apps.googleusercontent.com', //ANDROID CLIENT ID
+            '37974253661-6f2242raggt8urteh7kp6uvr1n1mk7bt.apps.googleusercontent.com', // WEB CLIENT ID
+      ).signIn();
+
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } on Exception catch (e) {
+      // TODO
+      print('exception->$e');
     }
   }
 
@@ -78,10 +74,11 @@ class SignInScreenState extends State<SignInScreen> {
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(elevation: 5),
                 onPressed: () async {
                   final email = _emailController.text.trim();
                   final password = _passwordController.text;
-                  // Validasi email
+// Validasi email
                   if (email.isEmpty || !isValidEmail(email)) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -89,21 +86,11 @@ class SignInScreenState extends State<SignInScreen> {
                     );
                     return;
                   }
-                  // Validasi password
-                  if (password.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text('Please enter your password')),
-                    );
-                    return;
-                  }
                   try {
-                    // Lakukan sign in dengan email dan password
                     await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: email,
-                      password: password,
+                      email: _emailController.text,
+                      password: _passwordController.text,
                     );
-                    // Jika berhasil sign in, navigasi ke halaman beranda
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                           builder: (context) => const HomeScreen()),
@@ -135,6 +122,7 @@ class SignInScreenState extends State<SignInScreen> {
                     }
                   } catch (error) {
                     // Tangani kesalahan lain yang tidak terkait dengan otentikasi
+
                     setState(() {
                       _errorMessage = error.toString();
                     });
@@ -148,10 +136,6 @@ class SignInScreenState extends State<SignInScreen> {
                 child: const Text('Sign In'),
               ),
               const SizedBox(height: 32.0),
-              ElevatedButton(
-                  onPressed: _signInWithGoogle,
-                  child: Text('Sign In With Google')),
-              const SizedBox(height: 16.0),
               TextButton(
                 onPressed: () {
                   Navigator.push(
@@ -161,6 +145,42 @@ class SignInScreenState extends State<SignInScreen> {
                   );
                 },
                 child: const Text('Don\'t have an account? Sign up'),
+              ),
+              const SizedBox(height: 32.0),
+              const Text(
+                "--- Or Sign In With ---",
+                style: TextStyle(color: Colors.black54),
+              ),
+              const SizedBox(height: 32.0),
+              ValueListenableBuilder(
+                valueListenable: userCredential,
+                builder: (context, value, child) {
+                  return Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(elevation: 5),
+                      onPressed: () async {
+                        userCredential.value = await signInWithGoogle();
+                        if (userCredential.value != null)
+                          print(userCredential.value.user!.email);
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen()),
+                        );
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/google_icon.png',
+                          ),
+                          Text('Sign in with Google')
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),
