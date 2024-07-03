@@ -177,177 +177,180 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: const Color(0xFF8DB6B4),
         title: const Text('Profile', style: TextStyle(color: Colors.white)),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/background_profil.jpeg'),
-            fit: BoxFit.fitWidth,
-            colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(0.7),
-              BlendMode.darken,
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/background_profil.jpeg'),
+              fit: BoxFit.fitWidth,
+              colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.7),
+                BlendMode.darken,
+              ),
             ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Stack(
-            children: [
-              // White overlay after the divider
-              Positioned(
-                top: 270, // Adjust the position according to your layout
-                left: 0,
-                right: 0,
-                child: Container(
-                  color: _backgroundColor,
-                  height: 500, // Adjust the height according to your layout
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Stack(
+              children: [
+                // White overlay after the divider
+                Positioned(
+                  top: 270, // Adjust the position according to your layout
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    color: _backgroundColor,
+                    height: 500, // Adjust the height according to your layout
+                  ),
                 ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // Profile Header
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 70),
-                      child: Stack(
-                        alignment: Alignment.bottomRight,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey, width: 2),
-                              shape: BoxShape.circle,
-                            ),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 85,
-                              child: Image.network(
-                                _imageUrl ??
-                                    'https://example.com/default_image.jpg', // Provide a default image URL if _imageUrl is null
-                                fit: BoxFit.cover,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Profile Header
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 70),
+                        child: Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.grey, width: 2),
+                                shape: BoxShape.circle,
                               ),
+                              child: CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 85,
+                                child: Image.network(
+                                  _imageUrl ??
+                                      'https://example.com/default_image.jpg', // Provide a default image URL if _imageUrl is null
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            if (isSignedIn)
+                              IconButton(
+                                onPressed: () {
+                                  _showImageSourceDialog();
+                                },
+                                icon: Icon(
+                                  Icons.camera_alt,
+                                  color: Colors.grey[50],
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Divider(color: Colors.grey),
+                    const SizedBox(height: 4),
+                    // Nama dan Username
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Nama',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[600],
                             ),
                           ),
-                          if (isSignedIn)
-                            IconButton(
-                              onPressed: () {
-                                _showImageSourceDialog();
-                              },
-                              icon: Icon(
-                                Icons.camera_alt,
-                                color: Colors.grey[50],
-                              ),
+                          Text(
+                            fullName ?? '',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: _textColor,
                             ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Pengguna',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          Text(
+                            userName,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: _textColor,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          // Masakan Favorit
+                          Text(
+                            'Masakan Favorit',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[600],
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Divider(color: Colors.grey),
-                  const SizedBox(height: 4),
-                  // Nama dan Username
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Nama',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                        Text(
-                          fullName ?? '',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: _textColor,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Pengguna',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                        Text(
-                          userName,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: _textColor,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        // Masakan Favorit
-                        Text(
-                          'Masakan Favorit',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  // Toggle Theme Button
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 400,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Container(
-                              color: Colors.grey[300],
-                              width: double.infinity,
-                              height: 40,
-                              child: TextButton(
-                                onPressed: signIn,
-                                child: const Text("Simpan Postingan"),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        SizedBox(
-                          width: 400,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Container(
-                              color: Colors.grey[300],
-                              width: double.infinity,
-                              height: 40,
-                              child: TextButton(
-                                onPressed: _toggleTheme,
-                                child: Text(
-                                  _themeMode == ThemeMode.light
-                                      ? 'Switch to Dark Mode'
-                                      : 'Switch to Light Mode',
-                                  style: TextStyle(color: Colors.black),
+                    const SizedBox(height: 20),
+                    // Toggle Theme Button
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: 400,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                color: Colors.grey[300],
+                                width: double.infinity,
+                                height: 40,
+                                child: TextButton(
+                                  onPressed: signIn,
+                                  child: const Text("Simpan Postingan"),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 8),
+                          SizedBox(
+                            width: 400,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                color: Colors.grey[300],
+                                width: double.infinity,
+                                height: 40,
+                                child: TextButton(
+                                  onPressed: _toggleTheme,
+                                  child: Text(
+                                    _themeMode == ThemeMode.light
+                                        ? 'Switch to Dark Mode'
+                                        : 'Switch to Light Mode',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
