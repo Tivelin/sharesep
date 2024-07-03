@@ -4,21 +4,153 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+<<<<<<< Updated upstream
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
+=======
+<<<<<<< Updated upstream
+=======
+import 'home_screen.dart';
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
 class AddPostScreen extends StatefulWidget {
+  const AddPostScreen({super.key});
+
   @override
-  _AddPostScreenState createState() => _AddPostScreenState();
+  State<AddPostScreen> createState() => _AddPostScreenState();
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
+<<<<<<< Updated upstream
   final _postTextController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   XFile? _image;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   LatLng? _location;
+=======
+  final _judulController = TextEditingController();
+  final _deskripsiController = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+  XFile? _image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add Post'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              onPressed: () async => Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+              ),
+              icon: const Icon(Icons.arrow_back),
+            ),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () async {
+                    final pickedFile =
+                        await _picker.pickImage(source: ImageSource.camera);
+                    if (pickedFile != null) {
+                      setState(() {
+                        _image = pickedFile;
+                      });
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(color: Colors.grey),
+                    width: 200,
+                    height: 200,
+                    child: _image != null
+                        ? Image.file(File(_image!.path))
+                        : Icon(
+                            Icons.camera_alt,
+                            color: Colors.grey[800],
+                          ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          TextField(
+            controller: _judulController,
+            decoration: const InputDecoration(
+              labelText: 'Judul',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 16.0),
+          TextField(
+            controller: _deskripsiController,
+            decoration: const InputDecoration(
+              labelText: 'Deskripsi',
+              border: OutlineInputBorder(),
+            ),
+            obscureText: true,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const HomeScreen()));
+                },
+                child: const Text('Post')),
+          ),
+        ]),
+      ),
+    );
+  }
+<<<<<<< Updated upstream
+
+  Future<void> _uploadPost() async {
+    if (_image == null || _descriptionController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Image and description are required')),
+      );
+      return;
+    }
+
+    String imageUrl;
+    try {
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('post_images')
+          .child('${DateTime.now()}.jpg');
+      await ref.putFile(_image!);
+      imageUrl = await ref.getDownloadURL();
+    } catch (e) {
+      print(e);
+      return;
+    }
+
+    final user = FirebaseAuth.instance.currentUser;
+    final username = user?.email ?? 'Anonymous';
+
+    FirebaseFirestore.instance.collection('posts').add({
+      'imageUrl': imageUrl,
+      'description': _descriptionController.text,
+      'timestamp': Timestamp.now(),
+      'username':
+          username, // Hardcoded username, you can replace this with actual user data
+    });
+
+    Navigator.pop(context);
+  }
+>>>>>>> Stashed changes
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +235,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       ),
     );
   }
+<<<<<<< Updated upstream
 
   Future<void> _showImageSourceDialog() async {
     await showDialog(
@@ -176,4 +309,8 @@ class CurrentLocation {
       throw 'Error getting current location: $e';
     }
   }
+=======
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 }

@@ -4,6 +4,20 @@ import 'package:sharesep/screens/home_screen.dart';
 import 'package:sharesep/screens/sign_up_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+<<<<<<< Updated upstream
+=======
+final googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+    ],
+    clientId:
+<<<<<<< Updated upstream
+    '998685434592-022d7tgg7o5ksg45gm5emj785lsh1dm5.apps.googleusercontent.com');
+=======
+        '928610520931-r28737cvjhu8qn0nrfc8sjasgn7p1nlb.apps.googleusercontent.com');
+>>>>>>> Stashed changes
+
+>>>>>>> Stashed changes
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key});
 
@@ -20,6 +34,7 @@ class SignInScreenState extends State<SignInScreen> {
 
   Future<dynamic> signInWithGoogle() async {
     try {
+<<<<<<< Updated upstream
       final GoogleSignInAccount? googleUser = await GoogleSignIn(
         scopes: [
           'email',
@@ -41,6 +56,28 @@ class SignInScreenState extends State<SignInScreen> {
     } on Exception catch (e) {
       // TODO
       print('exception->$e');
+=======
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        await FirebaseAuth.instance.signInWithCredential(credential);
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      }
+    } catch (error) {
+      setState(() {
+        _errorMessage = error.toString();
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(_errorMessage),
+      ));
+>>>>>>> Stashed changes
     }
   }
 
